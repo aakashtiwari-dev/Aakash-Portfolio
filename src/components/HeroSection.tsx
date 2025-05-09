@@ -89,7 +89,7 @@ const HeroSection = () => {
             <div className="w-64 h-64 sm:w-80 sm:h-80 relative">
               <div className="animate-float w-full h-full rounded-full overflow-hidden pixel-border">
                 <div className="w-full h-full rounded-full overflow-hidden bg-gradient-to-br from-pixel-darkPurple to-pixel-purple p-1">
-                  <img alt="Developer Avatar" className="w-full h-full rounded-full object-cover" src="https://ibb.co/vC4ffRN5" />
+                  <img alt="Developer Avatar" className="w-full h-full rounded-full object-cover" src="/lovable-uploads/4338d312-359e-4f16-8bea-993e3bc7fdc7.jpg" />
                 </div>
               </div>
               <div className="absolute -bottom-4 -right-4 bg-background p-2 pixel-border animate-bounce-soft">
