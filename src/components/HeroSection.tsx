@@ -1,15 +1,11 @@
-
 import React, { useEffect, useRef } from 'react';
-
 const HeroSection = () => {
   const matrixRef = useRef<HTMLDivElement>(null);
-
   useEffect(() => {
     if (!matrixRef.current) return;
-    
     const container = matrixRef.current;
     const width = container.offsetWidth;
-    
+
     // Create matrix effect
     for (let i = 0; i < 20; i++) {
       const column = document.createElement('div');
@@ -17,7 +13,7 @@ const HeroSection = () => {
       column.style.left = `${Math.random() * width}px`;
       column.style.animationDuration = `${15 + Math.random() * 10}s`;
       column.style.animationDelay = `${Math.random() * 5}s`;
-      
+
       // Create random characters
       for (let j = 0; j < 20; j++) {
         const char = document.createElement('div');
@@ -25,19 +21,15 @@ const HeroSection = () => {
         char.style.opacity = `${Math.random()}`;
         column.appendChild(char);
       }
-      
       container.appendChild(column);
     }
-    
     return () => {
       while (container.firstChild) {
         container.removeChild(container.firstChild);
       }
     };
   }, []);
-
-  return (
-    <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden py-20">
+  return <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden py-20">
       {/* Matrix background effect */}
       <div ref={matrixRef} className="matrix-background"></div>
       
@@ -97,11 +89,7 @@ const HeroSection = () => {
             <div className="w-64 h-64 sm:w-80 sm:h-80 relative">
               <div className="animate-float w-full h-full rounded-full overflow-hidden pixel-border">
                 <div className="w-full h-full rounded-full overflow-hidden bg-gradient-to-br from-pixel-darkPurple to-pixel-purple p-1">
-                  <img 
-                    src="https://placehold.co/400x400/1A1F2C/9b87f5?text=Pixel+Avatar" 
-                    alt="Developer Avatar" 
-                    className="w-full h-full rounded-full object-cover"
-                  />
+                  <img alt="Developer Avatar" className="w-full h-full rounded-full object-cover" src="https://ibb.co/vC4ffRN5" />
                 </div>
               </div>
               <div className="absolute -bottom-4 -right-4 bg-background p-2 pixel-border animate-bounce-soft">
@@ -118,8 +106,6 @@ const HeroSection = () => {
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
         </svg>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default HeroSection;
