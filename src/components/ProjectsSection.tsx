@@ -65,12 +65,50 @@ const projects = [
   }
 ];
 
+// Additional projects that will be shown when "Load More" is clicked
+const additionalProjects = [
+  {
+    id: 7,
+    title: "Blog Platform",
+    description: "A modern blog platform with markdown support and user comments.",
+    image: "https://placehold.co/600x400/1A1F2C/9b87f5?text=Blog+Platform",
+    tags: ["React", "GraphQL", "MongoDB", "AWS"],
+    demoLink: "#",
+    githubLink: "#",
+    category: "webapp"
+  },
+  {
+    id: 8,
+    title: "Weather Application",
+    description: "Real-time weather forecasting application with location services.",
+    image: "https://placehold.co/600x400/1A1F2C/9b87f5?text=Weather+App",
+    tags: ["JavaScript", "Weather API", "Geolocation", "PWA"],
+    demoLink: "#",
+    githubLink: "#",
+    category: "webapp"
+  },
+  {
+    id: 9,
+    title: "Chat Application",
+    description: "Real-time chat application with private messaging and group chats.",
+    image: "https://placehold.co/600x400/1A1F2C/9b87f5?text=Chat+App",
+    tags: ["React", "Socket.io", "Express", "MongoDB"],
+    demoLink: "#",
+    githubLink: "#",
+    category: "webapp"
+  }
+];
+
 const ProjectsSection = () => {
   const [activeFilter, setActiveFilter] = useState("all");
+  const [showMore, setShowMore] = useState(false);
+  
+  // Combine initial and additional projects based on showMore state
+  const allProjects = showMore ? [...projects, ...additionalProjects] : projects;
   
   const filteredProjects = activeFilter === "all" 
-    ? projects 
-    : projects.filter(project => project.category === activeFilter);
+    ? allProjects 
+    : allProjects.filter(project => project.category === activeFilter);
 
   return (
     <section id="projects" className="py-20 bg-gradient-to-b from-[#1A1F2C] to-background">
@@ -173,8 +211,11 @@ const ProjectsSection = () => {
         
         {/* Load more button */}
         <div className="text-center mt-12">
-          <button className="pixel-button font-pixel text-sm py-3 px-6">
-            Load More Projects
+          <button 
+            onClick={() => setShowMore(!showMore)} 
+            className="pixel-button font-pixel text-sm py-3 px-6"
+          >
+            {showMore ? "Show Less Projects" : "Load More Projects"}
           </button>
         </div>
       </div>
