@@ -1,6 +1,9 @@
+
 import React, { useEffect, useRef } from 'react';
+
 const HeroSection = () => {
   const matrixRef = useRef<HTMLDivElement>(null);
+  
   useEffect(() => {
     if (!matrixRef.current) return;
     const container = matrixRef.current;
@@ -29,6 +32,17 @@ const HeroSection = () => {
       }
     };
   }, []);
+  
+  const handleDownloadResume = () => {
+    // Create a link to download the resume file
+    const link = document.createElement('a');
+    link.href = '/resume.pdf'; // Update this path to your actual resume file
+    link.download = 'aakash-resume.pdf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+  
   return <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden py-20">
       {/* Matrix background effect */}
       <div ref={matrixRef} className="matrix-background"></div>
@@ -54,13 +68,13 @@ const HeroSection = () => {
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-              <button className="pixel-button font-pixel text-sm py-3 px-6 flex items-center justify-center">
+              <a href="#projects" className="pixel-button font-pixel text-sm py-3 px-6 flex items-center justify-center">
                 View My Work
                 <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                 </svg>
-              </button>
-              <button className="pixel-button font-pixel text-sm py-3 px-6 bg-secondary hover:bg-secondary">
+              </a>
+              <button onClick={handleDownloadResume} className="pixel-button font-pixel text-sm py-3 px-6 bg-secondary hover:bg-secondary">
                 Download Resume
               </button>
             </div>
@@ -87,7 +101,7 @@ const HeroSection = () => {
           {/* Right column: Avatar */}
           <div className="flex justify-center">
             <div className="w-64 h-64 sm:w-80 sm:h-80 relative">
-              <div className="animate-float w-full h-full rounded-full overflow-hidden pixel-border">
+              <div className="animate-float w-full h-full rounded-full overflow-hidden">
                 <div className="w-full h-full rounded-full overflow-hidden bg-gradient-to-br from-pixel-darkPurple to-pixel-purple p-1">
                   <img alt="Developer Avatar" className="w-full h-full rounded-full object-cover" src="/lovable-uploads/4338d312-359e-4f16-8bea-993e3bc7fdc7.jpg" />
                 </div>
@@ -108,4 +122,5 @@ const HeroSection = () => {
       </div>
     </section>;
 };
+
 export default HeroSection;

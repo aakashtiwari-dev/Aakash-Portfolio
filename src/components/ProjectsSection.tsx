@@ -62,15 +62,51 @@ const projects = [
     demoLink: "#",
     githubLink: "#",
     category: "website"
+  },
+  // Additional projects that will be shown when "Load More" is clicked
+  {
+    id: 7,
+    title: "Weather App",
+    description: "Real-time weather application with forecasting and location-based services.",
+    image: "https://placehold.co/600x400/1A1F2C/9b87f5?text=Weather+App",
+    tags: ["React", "OpenWeather API", "Geolocation"],
+    demoLink: "#",
+    githubLink: "#",
+    category: "webapp"
+  },
+  {
+    id: 8,
+    title: "Note Taking App",
+    description: "Cloud-based note taking application with rich text editing and organization features.",
+    image: "https://placehold.co/600x400/1A1F2C/9b87f5?text=Notes+App",
+    tags: ["Vue.js", "Firebase", "Vuex"],
+    demoLink: "#",
+    githubLink: "#",
+    category: "webapp"
+  },
+  {
+    id: 9,
+    title: "Fitness Tracker",
+    description: "Health and fitness tracking application with progress visualization and workout plans.",
+    image: "https://placehold.co/600x400/1A1F2C/9b87f5?text=Fitness+Tracker",
+    tags: ["React Native", "GraphQL", "MongoDB"],
+    demoLink: "#",
+    githubLink: "#",
+    category: "webapp"
   }
 ];
 
 const ProjectsSection = () => {
   const [activeFilter, setActiveFilter] = useState("all");
+  const [visibleProjects, setVisibleProjects] = useState(6);
   
   const filteredProjects = activeFilter === "all" 
     ? projects 
     : projects.filter(project => project.category === activeFilter);
+
+  const handleLoadMore = () => {
+    setVisibleProjects(projects.length);
+  };
 
   return (
     <section id="projects" className="py-20 bg-gradient-to-b from-[#1A1F2C] to-background">
@@ -107,7 +143,7 @@ const ProjectsSection = () => {
         
         {/* Projects grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filteredProjects.map((project) => (
+          {filteredProjects.slice(0, visibleProjects).map((project) => (
             <div key={project.id} className="pixel-card group">
               <div className="relative overflow-hidden mb-4 pixel-border">
                 <img 
@@ -172,11 +208,16 @@ const ProjectsSection = () => {
         </div>
         
         {/* Load more button */}
-        <div className="text-center mt-12">
-          <button className="pixel-button font-pixel text-sm py-3 px-6">
-            Load More Projects
-          </button>
-        </div>
+        {visibleProjects < filteredProjects.length && (
+          <div className="text-center mt-12">
+            <button 
+              className="pixel-button font-pixel text-sm py-3 px-6"
+              onClick={handleLoadMore}
+            >
+              Load More Projects
+            </button>
+          </div>
+        )}
       </div>
     </section>
   );

@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 const Navigation = () => {
   const [activeSection, setActiveSection] = useState('home');
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -29,7 +30,7 @@ const Navigation = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const scrollToSection = (sectionId: string) => {
+  const scrollToSection = (sectionId) => {
     const section = document.getElementById(sectionId);
     if (section) {
       window.scrollTo({
@@ -37,6 +38,12 @@ const Navigation = () => {
         behavior: 'smooth'
       });
     }
+    // Close mobile menu after clicking a link
+    setIsMobileMenuOpen(false);
+  };
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
   return (
@@ -44,6 +51,8 @@ const Navigation = () => {
       <div className="container mx-auto px-4 md:px-6">
         <div className="flex justify-between items-center">
           <div className="text-pixel-purple font-pixel text-lg">DEV.PORTFOLIO</div>
+          
+          {/* Desktop Navigation */}
           <div className="hidden md:flex space-x-1">
             {['home', 'about', 'projects', 'pricing', 'contact'].map((section) => (
               <button
@@ -59,10 +68,39 @@ const Navigation = () => {
               </button>
             ))}
           </div>
+          
+          {/* Mobile Menu Button */}
           <div className="md:hidden flex items-center">
-            <button className="pixel-button text-xs py-1">MENU</button>
+            <button 
+              className="pixel-button text-xs py-1"
+              onClick={toggleMobileMenu}
+              aria-label="Toggle mobile menu"
+            >
+              MENU
+            </button>
           </div>
         </div>
+        
+        {/* Mobile Menu Dropdown */}
+        {isMobileMenuOpen && (
+          <div className="md:hidden bg-background mt-4 p-4 rounded-md shadow-lg pixel-border">
+            <div className="flex flex-col space-y-2">
+              {['home', 'about', 'projects', 'pricing', 'contact'].map((section) => (
+                <button
+                  key={section}
+                  onClick={() => scrollToSection(section)}
+                  className={`px-3 py-3 text-center uppercase text-xs font-pixel transition-all ${
+                    activeSection === section
+                      ? 'text-pixel-purple bg-secondary'
+                      : 'text-gray-400 hover:text-white hover:bg-secondary/50'
+                  } rounded-md`}
+                >
+                  {section}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </nav>
   );

@@ -1,7 +1,17 @@
-
 import React from 'react';
+import { usePricing } from '../context/PricingContext';
 
 const PricingSection = () => {
+  // Use the pricing context
+  const { setSelectedPlan } = usePricing();
+  
+  // Handle plan selection
+  const handleSelectPlan = (planName) => {
+    setSelectedPlan(planName);
+    // Scroll to contact section
+    document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <section id="pricing" className="py-20 bg-gradient-to-b from-background to-[#1A1F2C]">
       <div className="container mx-auto px-4 md:px-6">
@@ -73,8 +83,11 @@ const PricingSection = () => {
                 </ul>
               </div>
               
-              <button className="pixel-button w-full bg-pixel-green font-pixel text-xs hover:bg-green-500">
-                SELECT PLAN
+              <button 
+                className="pixel-button w-full bg-pixel-green font-pixel text-xs py-2" 
+                onClick={() => handleSelectPlan('Simple Landing Page')}
+              >
+                Select Plan
               </button>
             </div>
           </div>
@@ -135,8 +148,11 @@ const PricingSection = () => {
                 </ul>
               </div>
               
-              <button className="pixel-button w-full bg-pixel-yellow text-black font-pixel text-xs hover:bg-yellow-400">
-                SELECT PLAN
+              <button 
+                className="pixel-button w-full bg-pixel-yellow text-black font-pixel text-xs py-2" 
+                onClick={() => handleSelectPlan('Landing Page + Admin')}
+              >
+                Select Plan
               </button>
             </div>
           </div>
@@ -203,8 +219,11 @@ const PricingSection = () => {
                 </ul>
               </div>
               
-              <button className="pixel-button w-full bg-pixel-red font-pixel text-xs hover:bg-red-500">
-                SELECT PLAN
+              <button 
+                className="pixel-button w-full bg-pixel-red font-pixel text-xs py-2" 
+                onClick={() => handleSelectPlan('Full Website + Admin')}
+              >
+                Select Plan
               </button>
             </div>
           </div>
@@ -268,7 +287,10 @@ const PricingSection = () => {
                 </li>
               </ul>
               
-              <button className="pixel-button w-full bg-pixel-cyan font-pixel text-xs">
+              <button 
+                className="pixel-button w-full bg-pixel-cyan font-pixel text-xs py-2" 
+                onClick={() => handleSelectPlan('Starter Plan')}
+              >
                 START NOW
               </button>
             </div>
@@ -331,7 +353,10 @@ const PricingSection = () => {
                 </li>
               </ul>
               
-              <button className="pixel-button w-full bg-pixel-pink font-pixel text-xs">
+              <button 
+                className="pixel-button w-full bg-pixel-pink font-pixel text-xs py-2" 
+                onClick={() => handleSelectPlan('Grow Plan')}
+              >
                 START NOW
               </button>
             </div>
