@@ -1,9 +1,6 @@
-
 import React, { useEffect, useRef } from 'react';
-
 const HeroSection = () => {
   const matrixRef = useRef<HTMLDivElement>(null);
-  
   useEffect(() => {
     if (!matrixRef.current) return;
     const container = matrixRef.current;
@@ -32,7 +29,6 @@ const HeroSection = () => {
       }
     };
   }, []);
-  
   return <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden py-20">
       {/* Matrix background effect */}
       <div ref={matrixRef} className="matrix-background"></div>
@@ -58,15 +54,15 @@ const HeroSection = () => {
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-              <a href="#projects" className="pixel-button font-pixel text-sm py-3 px-6 flex items-center justify-center">
+              <button className="pixel-button font-pixel text-sm py-3 px-6 flex items-center justify-center">
                 View My Work
                 <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                 </svg>
-              </a>
-              <a href="/resume.pdf" download className="pixel-button font-pixel text-sm py-3 px-6 bg-secondary hover:bg-secondary">
+              </button>
+              <button className="pixel-button font-pixel text-sm py-3 px-6 bg-secondary hover:bg-secondary">
                 Download Resume
-              </a>
+              </button>
             </div>
             
             <div className="flex mt-8 gap-4 justify-center lg:justify-start">
@@ -88,10 +84,10 @@ const HeroSection = () => {
             </div>
           </div>
           
-          {/* Right column: Avatar - Removed pixel-border class */}
+          {/* Right column: Avatar */}
           <div className="flex justify-center">
             <div className="w-64 h-64 sm:w-80 sm:h-80 relative">
-              <div className="animate-float w-full h-full rounded-full overflow-hidden">
+              <div className="animate-float w-full h-full rounded-full overflow-hidden pixel-border">
                 <div className="w-full h-full rounded-full overflow-hidden bg-gradient-to-br from-pixel-darkPurple to-pixel-purple p-1">
                   <img alt="Developer Avatar" className="w-full h-full rounded-full object-cover" src="/lovable-uploads/4338d312-359e-4f16-8bea-993e3bc7fdc7.jpg" />
                 </div>
@@ -112,5 +108,4 @@ const HeroSection = () => {
       </div>
     </section>;
 };
-
 export default HeroSection;
