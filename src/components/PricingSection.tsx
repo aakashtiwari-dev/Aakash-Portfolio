@@ -34,7 +34,7 @@ const PricingSection = () => {
               <span className="led green animate-blink"></span>
             </div>
             <div className="p-6">
-              <h3 className="font-bold mb-2 text-pixel-green font-pixel text-xl">LANDING PAGE</h3>
+              <h3 className="font-bold mb-2 text-pixel-green font-pixel text-lg">LANDING PAGE</h3>
               
               <div className="mb-4 text-center">
                 <span className="text-3xl font-bold text-white">₹999</span>
