@@ -1,19 +1,20 @@
 import React from 'react';
 import { usePricing } from '../context/PricingContext';
-
 const PricingSection = () => {
   // Use the pricing context
-  const { setSelectedPlan } = usePricing();
-  
+  const {
+    setSelectedPlan
+  } = usePricing();
+
   // Handle plan selection
-  const handleSelectPlan = (planName) => {
+  const handleSelectPlan = planName => {
     setSelectedPlan(planName);
     // Scroll to contact section
-    document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+    document.getElementById('contact').scrollIntoView({
+      behavior: 'smooth'
+    });
   };
-
-  return (
-    <section id="pricing" className="py-20 bg-gradient-to-b from-background to-[#1A1F2C]">
+  return <section id="pricing" className="py-20 bg-gradient-to-b from-background to-[#1A1F2C]">
       <div className="container mx-auto px-4 md:px-6">
         <div className="text-center mb-12">
           <div className="inline-block bg-pixel-purple/20 px-4 py-2 rounded-lg mb-4">
@@ -33,9 +34,7 @@ const PricingSection = () => {
               <span className="led green animate-blink"></span>
             </div>
             <div className="p-6">
-              <h3 className="text-xl font-bold mb-2 text-pixel-green font-pixel">
-                &#91;01&#93; SIMPLE LANDING PAGE
-              </h3>
+              <h3 className="font-bold mb-2 text-pixel-green font-pixel text-xl">SIMPLE LANDING PAGE</h3>
               
               <div className="mb-4 text-center">
                 <span className="text-3xl font-bold text-white">₹999</span>
@@ -83,10 +82,7 @@ const PricingSection = () => {
                 </ul>
               </div>
               
-              <button 
-                className="pixel-button w-full bg-pixel-green font-pixel text-xs py-2" 
-                onClick={() => handleSelectPlan('Simple Landing Page')}
-              >
+              <button className="pixel-button w-full bg-pixel-green font-pixel text-xs py-2" onClick={() => handleSelectPlan('Simple Landing Page')}>
                 Select Plan
               </button>
             </div>
@@ -148,10 +144,7 @@ const PricingSection = () => {
                 </ul>
               </div>
               
-              <button 
-                className="pixel-button w-full bg-pixel-yellow text-black font-pixel text-xs py-2" 
-                onClick={() => handleSelectPlan('Landing Page + Admin')}
-              >
+              <button className="pixel-button w-full bg-pixel-yellow text-black font-pixel text-xs py-2" onClick={() => handleSelectPlan('Landing Page + Admin')}>
                 Select Plan
               </button>
             </div>
@@ -219,10 +212,7 @@ const PricingSection = () => {
                 </ul>
               </div>
               
-              <button 
-                className="pixel-button w-full bg-pixel-red font-pixel text-xs py-2" 
-                onClick={() => handleSelectPlan('Full Website + Admin')}
-              >
+              <button className="pixel-button w-full bg-pixel-red font-pixel text-xs py-2" onClick={() => handleSelectPlan('Full Website + Admin')}>
                 Select Plan
               </button>
             </div>
@@ -287,10 +277,7 @@ const PricingSection = () => {
                 </li>
               </ul>
               
-              <button 
-                className="pixel-button w-full bg-pixel-cyan font-pixel text-xs py-2" 
-                onClick={() => handleSelectPlan('Starter Plan')}
-              >
+              <button className="pixel-button w-full bg-pixel-cyan font-pixel text-xs py-2" onClick={() => handleSelectPlan('Starter Plan')}>
                 START NOW
               </button>
             </div>
@@ -353,18 +340,13 @@ const PricingSection = () => {
                 </li>
               </ul>
               
-              <button 
-                className="pixel-button w-full bg-pixel-pink font-pixel text-xs py-2" 
-                onClick={() => handleSelectPlan('Grow Plan')}
-              >
+              <button className="pixel-button w-full bg-pixel-pink font-pixel text-xs py-2" onClick={() => handleSelectPlan('Grow Plan')}>
                 START NOW
               </button>
             </div>
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default PricingSection;
