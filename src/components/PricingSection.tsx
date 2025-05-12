@@ -38,7 +38,7 @@ const PricingSection = () => {
               
               <div className="mb-4 text-center">
                 <span className="text-3xl font-bold text-white">₹999</span>
-                <span className="text-gray-400 text-sm"> / one-time</span>
+                
               </div>
               
               <div className="border-t border-pixel-green/30 pt-4 mb-6">
@@ -98,7 +98,7 @@ const PricingSection = () => {
               
               <div className="mb-4 text-center">
                 <span className="text-3xl font-bold text-white">₹1,499</span>
-                <span className="text-gray-400 text-sm"> / one-time</span>
+                
               </div>
               
               <div className="border-t border-pixel-yellow/30 pt-4 mb-6">
@@ -158,7 +158,7 @@ const PricingSection = () => {
               
               <div className="mb-4 text-center">
                 <span className="text-3xl font-bold text-white">₹1,999</span>
-                <span className="text-gray-400 text-sm"> / one-time</span>
+                
               </div>
               
               <div className="border-t border-pixel-red/30 pt-4 mb-6">
