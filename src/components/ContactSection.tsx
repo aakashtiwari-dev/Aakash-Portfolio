@@ -1,6 +1,9 @@
-import React, { useState } from 'react';
+
+import React, { useState, useEffect } from 'react';
 import { Github, Linkedin, Mail, Send } from 'lucide-react';
 import { usePricing } from '../context/PricingContext';
+import emailjs from 'emailjs-com';
+import { toast } from '@/components/ui/sonner';
 
 const ContactSection = () => {
   // Use the pricing context
@@ -13,19 +16,51 @@ const ContactSection = () => {
     message: ''
   });
   
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  
+  useEffect(() => {
+    // Initialize EmailJS with your User ID (replace with your actual User ID)
+    emailjs.init("YOUR_USER_ID");
+  }, []);
+  
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   };
   
-  // Update the form submission to include the selected plan
+  // Update the form submission to include EmailJS
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Add the selected plan to the form data
-    console.log('Form submitted with plan:', selectedPlan);
-    // Reset form after submission
-    setFormData({ name: '', email: '', subject: '', message: '' });
-    // Here you would typically send the form data to a server
+    
+    setIsSubmitting(true);
+    
+    // Prepare template parameters
+    const templateParams = {
+      from_name: formData.name,
+      from_email: formData.email,
+      subject: formData.subject,
+      message: formData.message,
+      selected_plan: selectedPlan || 'No plan selected'
+    };
+    
+    // Send email using EmailJS
+    emailjs.send(
+      'YOUR_SERVICE_ID', // replace with your EmailJS service ID
+      'YOUR_TEMPLATE_ID', // replace with your EmailJS template ID
+      templateParams
+    )
+      .then(() => {
+        toast.success("Message sent successfully!");
+        // Reset form after successful submission
+        setFormData({ name: '', email: '', subject: '', message: '' });
+      })
+      .catch((error) => {
+        console.error('Email error:', error);
+        toast.error("Failed to send message. Please try again.");
+      })
+      .finally(() => {
+        setIsSubmitting(false);
+      });
   };
 
   return (
@@ -104,8 +139,9 @@ const ContactSection = () => {
               <button 
                 type="submit" 
                 className="pixel-button w-full font-pixel text-base py-4 animate-pulse"
+                disabled={isSubmitting}
               >
-                {selectedPlan ? `Send Message About ${selectedPlan}` : 'Send Message'}
+                {isSubmitting ? 'Sending...' : selectedPlan ? `Send Message About ${selectedPlan}` : 'Send Message'}
               </button>
             </form>
           </div>
