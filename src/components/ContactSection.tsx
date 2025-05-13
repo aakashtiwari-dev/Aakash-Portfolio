@@ -20,7 +20,7 @@ const ContactSection = () => {
   
   useEffect(() => {
     // Initialize EmailJS with your User ID (replace with your actual User ID)
-    emailjs.init("YOUR_USER_ID");
+    emailjs.init("J4YoHR26KXKJh4GUV");
   }, []);
   
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -45,8 +45,8 @@ const ContactSection = () => {
     
     // Send email using EmailJS
     emailjs.send(
-      'YOUR_SERVICE_ID', // replace with your EmailJS service ID
-      'YOUR_TEMPLATE_ID', // replace with your EmailJS template ID
+      'service_jvykzta', // EmailJS service ID
+      'template_q507q1o', // EmailJS template ID
       templateParams
     )
       .then(() => {
