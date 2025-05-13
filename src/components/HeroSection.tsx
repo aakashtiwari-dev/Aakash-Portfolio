@@ -1,9 +1,6 @@
-
 import React, { useEffect, useRef } from 'react';
-
 const HeroSection = () => {
   const matrixRef = useRef<HTMLDivElement>(null);
-  
   useEffect(() => {
     if (!matrixRef.current) return;
     const container = matrixRef.current;
@@ -32,7 +29,6 @@ const HeroSection = () => {
       }
     };
   }, []);
-  
   const handleDownloadResume = () => {
     // Create a link to download the resume file
     const link = document.createElement('a');
@@ -42,7 +38,6 @@ const HeroSection = () => {
     link.click();
     document.body.removeChild(link);
   };
-  
   return <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden py-20">
       {/* Matrix background effect */}
       <div ref={matrixRef} className="matrix-background"></div>
@@ -74,9 +69,7 @@ const HeroSection = () => {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                 </svg>
               </a>
-              <button onClick={handleDownloadResume} className="pixel-button font-pixel text-sm py-3 px-6 bg-secondary hover:bg-secondary">
-                Download Resume
-              </button>
+              <button onClick={handleDownloadResume} className="pixel-button font-pixel text-sm py-3 px-6 bg-secondary hover:bg-secondary">Presentation</button>
             </div>
             
             <div className="flex mt-8 gap-4 justify-center lg:justify-start">
@@ -122,5 +115,4 @@ const HeroSection = () => {
       </div>
     </section>;
 };
-
 export default HeroSection;
