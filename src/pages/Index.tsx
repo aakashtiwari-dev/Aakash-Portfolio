@@ -1,10 +1,11 @@
-
 import React, { useEffect, useCallback, useRef } from 'react';
 import Navigation from '../components/Navigation';
 import HeroSection from '../components/HeroSection';
 import AboutSection from '../components/AboutSection';
 import ProjectsSection from '../components/ProjectsSection';
 import PricingSection from '../components/PricingSection';
+import FAQSection from '../components/FAQSection';
+import ReviewsSection from '../components/ReviewsSection';
 import ContactSection from '../components/ContactSection';
 import Footer from '../components/Footer';
 
@@ -136,6 +137,8 @@ const Index = () => {
         <AboutSection />
         <ProjectsSection />
         <PricingSection />
+        <FAQSection />
+        <ReviewsSection />
         <ContactSection />
       </main>
       <Footer />
