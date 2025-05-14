@@ -1,6 +1,11 @@
+
 import React, { useEffect, useRef } from 'react';
+import { useIsMobile } from '../hooks/use-mobile';
+
 const HeroSection = () => {
   const matrixRef = useRef<HTMLDivElement>(null);
+  const isMobile = useIsMobile();
+  
   useEffect(() => {
     if (!matrixRef.current) return;
     const container = matrixRef.current;
@@ -29,6 +34,7 @@ const HeroSection = () => {
       }
     };
   }, []);
+  
   const handleDownloadResume = () => {
     // Create a link to download the resume file
     const link = document.createElement('a');
@@ -38,12 +44,13 @@ const HeroSection = () => {
     link.click();
     document.body.removeChild(link);
   };
+  
   return <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden py-20">
       {/* Matrix background effect */}
       <div ref={matrixRef} className="matrix-background"></div>
       
       <div className="container mx-auto px-4 md:px-6 z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+        <div className={`grid grid-cols-1 lg:grid-cols-2 gap-8 items-center ${isMobile ? 'flex flex-col-reverse' : ''}`}>
           {/* Left column: Text content */}
           <div className="text-center lg:text-left">
             <div className="inline-block bg-pixel-darkBg px-4 py-2 mb-4 pixel-border">
@@ -96,7 +103,12 @@ const HeroSection = () => {
             <div className="w-64 h-64 sm:w-80 sm:h-80 relative">
               <div className="animate-float w-full h-full rounded-full overflow-hidden">
                 <div className="w-full h-full rounded-full overflow-hidden bg-gradient-to-br from-pixel-darkPurple to-pixel-purple p-1">
-                  <img alt="Developer Avatar" className="w-full h-full rounded-full object-cover" src="/lovable-uploads/4338d312-359e-4f16-8bea-993e3bc7fdc7.jpg" />
+                  <img 
+                    alt="Developer Avatar" 
+                    className="w-full h-full rounded-full object-cover" 
+                    src="/lovable-uploads/4338d312-359e-4f16-8bea-993e3bc7fdc7.jpg"
+                    loading="lazy" 
+                  />
                 </div>
               </div>
               <div className="absolute -bottom-4 -right-4 bg-background p-2 pixel-border animate-bounce-soft">

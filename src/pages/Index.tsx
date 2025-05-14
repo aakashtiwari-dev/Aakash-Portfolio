@@ -1,5 +1,5 @@
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback, useRef } from 'react';
 import Navigation from '../components/Navigation';
 import HeroSection from '../components/HeroSection';
 import AboutSection from '../components/AboutSection';
@@ -9,60 +9,101 @@ import ContactSection from '../components/ContactSection';
 import Footer from '../components/Footer';
 
 const Index = () => {
-  // Utility function to create matrix background effect
-  useEffect(() => {
-    const createMatrixEffect = () => {
+  const matrixCanvasRef = useRef<HTMLCanvasElement | null>(null);
+  const matrixContainerRef = useRef<HTMLDivElement | null>(null);
+  const matrixIntervalRef = useRef<number | null>(null);
+
+  // Optimized matrix effect with debounced resize handling
+  const createMatrixEffect = useCallback(() => {
+    if (!matrixContainerRef.current) return;
+    
+    // Create canvas if it doesn't exist
+    if (!matrixCanvasRef.current) {
       const canvas = document.createElement('canvas');
-      const container = document.querySelector('.matrix-background');
-      if (!container) return;
+      matrixCanvasRef.current = canvas;
+      matrixContainerRef.current.appendChild(canvas);
+    }
+    
+    const canvas = matrixCanvasRef.current;
+    const container = matrixContainerRef.current;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    
+    // Set canvas dimensions
+    canvas.width = container.clientWidth;
+    canvas.height = container.clientHeight;
+    
+    // Optimize for performance
+    const cols = Math.floor(canvas.width / 20) + 1;
+    const ypos = Array(cols).fill(0);
+    
+    // Clear existing interval
+    if (matrixIntervalRef.current) {
+      clearInterval(matrixIntervalRef.current);
+    }
+    
+    const matrixEffect = () => {
+      // Use requestAnimationFrame for better performance
+      ctx.fillStyle = 'rgba(26, 31, 44, 0.05)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
       
-      container.appendChild(canvas);
-      const ctx = canvas.getContext('2d');
-      if (!ctx) return;
+      ctx.fillStyle = '#9b87f5';
+      ctx.font = '15px monospace';
       
-      canvas.width = container.clientWidth;
-      canvas.height = container.clientHeight;
-      
-      const cols = Math.floor(canvas.width / 20) + 1;
-      const ypos = Array(cols).fill(0);
-      
-      const matrixEffect = () => {
-        ctx.fillStyle = 'rgba(26, 31, 44, 0.05)';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        
-        ctx.fillStyle = '#9b87f5';
-        ctx.font = '15px monospace';
-        
-        ypos.forEach((y, ind) => {
-          const text = String.fromCharCode(Math.random() * 128);
-          const x = ind * 20;
-          ctx.fillText(text, x, y);
-          if (y > 100 + Math.random() * 10000) {
-            ypos[ind] = 0;
-          } else {
-            ypos[ind] = y + 20;
-          }
-        });
-      };
-      
-      const interval = setInterval(matrixEffect, 50);
-      
-      return () => {
-        clearInterval(interval);
-        if (container && canvas) {
-          container.removeChild(canvas);
+      ypos.forEach((y, ind) => {
+        const text = String.fromCharCode(Math.random() * 128);
+        const x = ind * 20;
+        ctx.fillText(text, x, y);
+        if (y > 100 + Math.random() * 10000) {
+          ypos[ind] = 0;
+        } else {
+          ypos[ind] = y + 20;
         }
-      };
+      });
     };
     
-    const cleanup = createMatrixEffect();
-    return cleanup;
+    // Use setInterval with optimized rate
+    matrixIntervalRef.current = window.setInterval(matrixEffect, 70);
+    
+    return () => {
+      if (matrixIntervalRef.current) {
+        clearInterval(matrixIntervalRef.current);
+      }
+    };
   }, []);
+  
+  // Handle resize events efficiently
+  useEffect(() => {
+    let resizeTimer: number;
+    
+    const handleResize = () => {
+      // Debounce resize events
+      clearTimeout(resizeTimer);
+      resizeTimer = window.setTimeout(() => {
+        if (matrixCanvasRef.current && matrixContainerRef.current) {
+          matrixCanvasRef.current.width = matrixContainerRef.current.clientWidth;
+          matrixCanvasRef.current.height = matrixContainerRef.current.clientHeight;
+        }
+      }, 250);
+    };
+    
+    window.addEventListener('resize', handleResize);
+    
+    // Initialize matrix effect
+    const cleanup = createMatrixEffect();
+    
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      if (cleanup) cleanup();
+      clearTimeout(resizeTimer);
+    };
+  }, [createMatrixEffect]);
 
   return (
     <div className="flex flex-col min-h-screen bg-background text-white">
       <Navigation />
       <main className="flex-grow">
+        <div className="matrix-background" ref={matrixContainerRef}></div>
         <HeroSection />
         <AboutSection />
         <ProjectsSection />
