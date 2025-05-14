@@ -12,8 +12,9 @@ const Index = () => {
   const matrixCanvasRef = useRef<HTMLCanvasElement | null>(null);
   const matrixContainerRef = useRef<HTMLDivElement | null>(null);
   const matrixIntervalRef = useRef<number | null>(null);
+  const requestAnimationRef = useRef<number | null>(null);
 
-  // Optimized matrix effect with debounced resize handling
+  // Optimized matrix effect with RAF instead of setInterval
   const createMatrixEffect = useCallback(() => {
     if (!matrixContainerRef.current) return;
     
@@ -37,37 +38,59 @@ const Index = () => {
     const cols = Math.floor(canvas.width / 20) + 1;
     const ypos = Array(cols).fill(0);
     
-    // Clear existing interval
+    // Clear existing interval and animation frame
     if (matrixIntervalRef.current) {
       clearInterval(matrixIntervalRef.current);
+      matrixIntervalRef.current = null;
     }
     
-    const matrixEffect = () => {
-      // Use requestAnimationFrame for better performance
-      ctx.fillStyle = 'rgba(26, 31, 44, 0.05)';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
+    if (requestAnimationRef.current) {
+      cancelAnimationFrame(requestAnimationRef.current);
+      requestAnimationRef.current = null;
+    }
+    
+    // Using time-based animation for consistent speed across devices
+    let lastTime = 0;
+    const fps = 14; // Approximately 70ms between frames (1000/14 ≈ 71.4)
+    const frameDuration = 1000 / fps;
+    
+    const matrixEffect = (timestamp: number) => {
+      if (!ctx) return;
       
-      ctx.fillStyle = '#9b87f5';
-      ctx.font = '15px monospace';
+      const elapsed = timestamp - lastTime;
       
-      ypos.forEach((y, ind) => {
-        const text = String.fromCharCode(Math.random() * 128);
-        const x = ind * 20;
-        ctx.fillText(text, x, y);
-        if (y > 100 + Math.random() * 10000) {
-          ypos[ind] = 0;
-        } else {
-          ypos[ind] = y + 20;
-        }
-      });
+      if (elapsed > frameDuration) {
+        lastTime = timestamp - (elapsed % frameDuration);
+        
+        // Clear with slight transparency for trail effect
+        ctx.fillStyle = 'rgba(26, 31, 44, 0.05)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        
+        ctx.fillStyle = '#9b87f5';
+        ctx.font = '15px monospace';
+        
+        ypos.forEach((y, ind) => {
+          const text = String.fromCharCode(Math.random() * 128);
+          const x = ind * 20;
+          ctx.fillText(text, x, y);
+          if (y > 100 + Math.random() * 10000) {
+            ypos[ind] = 0;
+          } else {
+            ypos[ind] = y + 20;
+          }
+        });
+      }
+      
+      // Continue animation loop
+      requestAnimationRef.current = requestAnimationFrame(matrixEffect);
     };
     
-    // Use setInterval with optimized rate
-    matrixIntervalRef.current = window.setInterval(matrixEffect, 70);
+    // Start animation loop
+    requestAnimationRef.current = requestAnimationFrame(matrixEffect);
     
     return () => {
-      if (matrixIntervalRef.current) {
-        clearInterval(matrixIntervalRef.current);
+      if (requestAnimationRef.current) {
+        cancelAnimationFrame(requestAnimationRef.current);
       }
     };
   }, []);
@@ -96,6 +119,11 @@ const Index = () => {
       window.removeEventListener('resize', handleResize);
       if (cleanup) cleanup();
       clearTimeout(resizeTimer);
+      
+      // Additional cleanup
+      if (requestAnimationRef.current) {
+        cancelAnimationFrame(requestAnimationRef.current);
+      }
     };
   }, [createMatrixEffect]);
 

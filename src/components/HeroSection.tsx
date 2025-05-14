@@ -50,7 +50,28 @@ const HeroSection = () => {
       <div ref={matrixRef} className="matrix-background"></div>
       
       <div className="container mx-auto px-4 md:px-6 z-10">
-        <div className={`grid grid-cols-1 lg:grid-cols-2 gap-8 items-center ${isMobile ? 'flex flex-col-reverse' : ''}`}>
+        <div className={`grid ${isMobile ? 'grid-cols-1' : 'grid-cols-1 lg:grid-cols-2'} gap-8 items-center`}>
+          {/* Mobile Hero Image - Only show on mobile */}
+          {isMobile && (
+            <div className="flex justify-center mb-8">
+              <div className="w-64 h-64 sm:w-80 sm:h-80 relative">
+                <div className="animate-float w-full h-full rounded-full overflow-hidden">
+                  <div className="w-full h-full rounded-full overflow-hidden bg-gradient-to-br from-pixel-darkPurple to-pixel-purple p-1">
+                    <img 
+                      alt="Developer Avatar" 
+                      className="w-full h-full rounded-full object-cover" 
+                      src="/lovable-uploads/4338d312-359e-4f16-8bea-993e3bc7fdc7.jpg"
+                      loading="lazy" 
+                    />
+                  </div>
+                </div>
+                <div className="absolute -bottom-4 -right-4 bg-background p-2 pixel-border animate-bounce-soft">
+                  <span className="text-pixel-purple font-pixel text-sm">&#60;/&#62;</span>
+                </div>
+              </div>
+            </div>
+          )}
+          
           {/* Left column: Text content */}
           <div className="text-center lg:text-left">
             <div className="inline-block bg-pixel-darkBg px-4 py-2 mb-4 pixel-border">
@@ -98,24 +119,26 @@ const HeroSection = () => {
             </div>
           </div>
           
-          {/* Right column: Avatar */}
-          <div className="flex justify-center">
-            <div className="w-64 h-64 sm:w-80 sm:h-80 relative">
-              <div className="animate-float w-full h-full rounded-full overflow-hidden">
-                <div className="w-full h-full rounded-full overflow-hidden bg-gradient-to-br from-pixel-darkPurple to-pixel-purple p-1">
-                  <img 
-                    alt="Developer Avatar" 
-                    className="w-full h-full rounded-full object-cover" 
-                    src="/lovable-uploads/4338d312-359e-4f16-8bea-993e3bc7fdc7.jpg"
-                    loading="lazy" 
-                  />
+          {/* Right column: Avatar - Only show on desktop */}
+          {!isMobile && (
+            <div className="flex justify-center">
+              <div className="w-64 h-64 sm:w-80 sm:h-80 relative">
+                <div className="animate-float w-full h-full rounded-full overflow-hidden">
+                  <div className="w-full h-full rounded-full overflow-hidden bg-gradient-to-br from-pixel-darkPurple to-pixel-purple p-1">
+                    <img 
+                      alt="Developer Avatar" 
+                      className="w-full h-full rounded-full object-cover" 
+                      src="/lovable-uploads/4338d312-359e-4f16-8bea-993e3bc7fdc7.jpg"
+                      loading="lazy" 
+                    />
+                  </div>
+                </div>
+                <div className="absolute -bottom-4 -right-4 bg-background p-2 pixel-border animate-bounce-soft">
+                  <span className="text-pixel-purple font-pixel text-sm">&#60;/&#62;</span>
                 </div>
               </div>
-              <div className="absolute -bottom-4 -right-4 bg-background p-2 pixel-border animate-bounce-soft">
-                <span className="text-pixel-purple font-pixel text-sm">&#60;/&#62;</span>
-              </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
       
