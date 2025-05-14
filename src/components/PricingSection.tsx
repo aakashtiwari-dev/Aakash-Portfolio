@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { usePricing } from '../context/PricingContext';
 const PricingSection = () => {
@@ -20,7 +21,7 @@ const PricingSection = () => {
           <div className="inline-block bg-pixel-purple/20 px-4 py-2 rounded-lg mb-4">
             <h2 className="font-pixel text-pixel-purple text-sm">PRICING</h2>
           </div>
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Web Development <span className="text-pixel-purple">Plans</span></h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">One-time <span className="text-pixel-purple">(Installation) fees</span></h2>
           <p className="text-gray-300 max-w-2xl mx-auto">
             Choose a plan that suits your business needs. All plans include lifetime support and maintenance options.
           </p>
