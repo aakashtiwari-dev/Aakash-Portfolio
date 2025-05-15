@@ -10,8 +10,8 @@ export default defineConfig(({ mode }) => ({
     host: "::",
     port: 8080,
   },
-  // Set the base path for GitHub Pages
-  base: './',
+  // Set the base path for GitHub Pages with your repository name
+  base: '/Aakash-Portfolio/',
   plugins: [
     react(),
     mode === 'development' &&
