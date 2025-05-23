@@ -45,7 +45,7 @@ const HeroSection = () => {
     document.body.removeChild(link);
   };
   
-  return <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden py-20">
+  return <section id="home" className={`min-h-screen flex items-center justify-center relative overflow-hidden ${isMobile ? 'py-8' : 'py-20'}`}>
       {/* Matrix background effect */}
       <div ref={matrixRef} className="matrix-background"></div>
       
@@ -53,8 +53,8 @@ const HeroSection = () => {
         <div className={`grid ${isMobile ? 'grid-cols-1' : 'grid-cols-1 lg:grid-cols-2'} gap-8 items-center`}>
           {/* Mobile Hero Image - Only show on mobile */}
           {isMobile && (
-            <div className="flex justify-center mb-8">
-              <div className="w-64 h-64 sm:w-80 sm:h-80 relative">
+            <div className="flex justify-center mb-4">
+              <div className="w-48 h-48 sm:w-56 sm:h-56 relative">
                 <div className="animate-float w-full h-full rounded-full overflow-hidden">
                   <div className="w-full h-full rounded-full overflow-hidden bg-gradient-to-br from-pixel-darkPurple to-pixel-purple p-1">
                     <img 
@@ -74,33 +74,33 @@ const HeroSection = () => {
           
           {/* Left column: Text content */}
           <div className="text-center lg:text-left">
-            <div className="inline-block bg-pixel-darkBg px-4 py-2 mb-4 pixel-border">
+            <div className="inline-block bg-pixel-darkBg px-4 py-2 mb-3 pixel-border">
               <h2 className="font-pixel text-pixel-purple text-sm">Software Engineer</h2>
             </div>
             
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-              <span className="block mb-2">Hi, I'm <span className="text-pixel-purple">Aakash</span>.</span>
+            <h1 className={`${isMobile ? 'text-3xl' : 'text-4xl md:text-5xl lg:text-6xl'} font-bold ${isMobile ? 'mb-4' : 'mb-6'}`}>
+              <span className={`block ${isMobile ? 'mb-1' : 'mb-2'}`}>Hi, I'm <span className="text-pixel-purple">Aakash</span>.</span>
               <div className="typing-container">
                 <span className="typing-text block">I build web apps.</span>
               </div>
             </h1>
             
-            <p className="text-gray-300 mb-8 max-w-lg mx-auto lg:mx-0">
+            <p className={`text-gray-300 ${isMobile ? 'mb-4 text-sm' : 'mb-8'} max-w-lg mx-auto lg:mx-0`}>
               I'm a software engineer specializing in building exceptional digital experiences.
               Currently focused on creating accessible, human-centered products with cutting-edge technology.
             </p>
             
-            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-              <a href="#projects" className="pixel-button font-pixel text-sm py-3 px-6 flex items-center justify-center">
+            <div className={`flex flex-col sm:flex-row gap-3 justify-center lg:justify-start ${isMobile ? 'mb-4' : ''}`}>
+              <a href="#projects" className={`pixel-button font-pixel text-sm ${isMobile ? 'py-2 px-4' : 'py-3 px-6'} flex items-center justify-center`}>
                 View My Work
                 <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                 </svg>
               </a>
-              <button onClick={handleDownloadResume} className="pixel-button font-pixel text-sm py-3 px-6 bg-secondary hover:bg-secondary">Presentation</button>
+              <button onClick={handleDownloadResume} className={`pixel-button font-pixel text-sm ${isMobile ? 'py-2 px-4' : 'py-3 px-6'} bg-secondary hover:bg-secondary`}>Presentation</button>
             </div>
             
-            <div className="flex mt-8 gap-4 justify-center lg:justify-start">
+            <div className={`flex ${isMobile ? 'mt-4' : 'mt-8'} gap-4 justify-center lg:justify-start`}>
               <a href="#" className="p-3 bg-secondary rounded-full hover:bg-pixel-darkPurple transition-colors duration-300">
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path fillRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clipRule="evenodd" />
